@@ -1,10 +1,12 @@
 package com.finance.app.controller;
 
+import com.finance.app.domain.MessageToEmail;
 import com.finance.app.domain.User;
 import com.finance.app.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,9 @@ public class UserController extends WebMvcConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    JmsTemplate jmsTemplate;
 
 
     @Override
@@ -44,8 +49,10 @@ public class UserController extends WebMvcConfigurerAdapter {
         userService.save(user);
         if(bindingResult.hasErrors()){
             LOGGER.info("UserController.save() some error in form");
-            return "registration";
+            return "redirect/:registration";
         }else {
+            jmsTemplate.convertAndSend("mailbox", new MessageToEmail(user.getEmail(), "Registration is success"));
+            LOGGER.info("UserController.save() mail sent to user :" + user.getEmail() +" ");
             LOGGER.info("UserController.save() finished");
             return "login";
         }
