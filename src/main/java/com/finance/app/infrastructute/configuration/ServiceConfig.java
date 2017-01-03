@@ -17,9 +17,4 @@ public class ServiceConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public CloseableHttpClient httpClient() {
-        return HttpClientBuilder.create().build();
-    }
-
 }

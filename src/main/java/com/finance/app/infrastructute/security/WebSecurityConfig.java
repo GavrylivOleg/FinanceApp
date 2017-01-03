@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 SessionCreationPolicy.ALWAYS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/index").permitAll()
+                .antMatchers("/", "/registration", "/index","/currencyExchange").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

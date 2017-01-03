@@ -7,15 +7,28 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import javax.validation.Valid;
 
 @Controller
-public class UserController {
+public class UserController extends WebMvcConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
+
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/login").setViewName("login");
+    }
 
     @GetMapping("/registration")
     public String getRegistration(Model model) {
@@ -25,11 +38,16 @@ public class UserController {
         return "registration";
     }
 
-    @PostMapping("/registration")
-    public String saveUser(@ModelAttribute User user) {
+   @PostMapping("/registration")
+    public String saveUser(@ModelAttribute @Valid  User user, BindingResult bindingResult) {
         LOGGER.info("UserController.save()");
         userService.save(user);
-        LOGGER.info("UserController.save() finished");
-        return "login";
+        if(bindingResult.hasErrors()){
+            LOGGER.info("UserController.save() some error in form");
+            return "registration";
+        }else {
+            LOGGER.info("UserController.save() finished");
+            return "login";
+        }
     }
 }
