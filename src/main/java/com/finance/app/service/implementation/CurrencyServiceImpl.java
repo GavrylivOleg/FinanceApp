@@ -21,7 +21,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public Optional<CurrencyExchange> getCurrency() {
         LOGGER.info("CurrencyServiceImpl.getCurrency()");
-        CurrencyExchange currencyExchange = restTemplate.getForObject("http://apilayer.net/api/live?access_key=b6a21385f0b87cf03a98510d66e9ba2d&currencies=USD,AUD,CAD,PLN,MXN&format=1",CurrencyExchange.class);
+        CurrencyExchange currencyExchange = restTemplate.getForObject("http://apilayer.net/api/live?access_key=b6a21385f0b87cf03a98510d66e9ba2d&currencies=USD,AUD,CAD,PLN,MXN&format=1", CurrencyExchange.class);
         LOGGER.info("CurrencyServiceImpl.getCurrency() finished");
         return Optional.of(currencyExchange);
     }

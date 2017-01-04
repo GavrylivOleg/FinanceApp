@@ -14,7 +14,6 @@ public class MessageToEmail {
     private String to;
     private String body;
 
-
     @Override
     public String toString() {
         return String.format("MessageToEmail{to=%s, body=%s}", getTo(), getBody());

@@ -2,7 +2,6 @@ package com.finance.app.persistance.implementation;
 
 import com.finance.app.infrastructute.exception.CurrencyExchangeNotFoundException;
 import com.finance.app.persistance.FinanceRepository;
-//import com.finance.app.service.implementation.FinanceBaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,6 @@ public class FinanceRepositoryImpl<T> implements FinanceRepository<T> {
 
     @Override
     public Page<T> findAll(Pageable pageable, String search) {
-
         throw new CurrencyExchangeNotFoundException("not yet implemented");
     }
 

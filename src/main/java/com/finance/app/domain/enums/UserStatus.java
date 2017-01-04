@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-
 @AllArgsConstructor
 @ToString
 public enum UserStatus {
@@ -13,6 +12,5 @@ public enum UserStatus {
 
     @Getter
     private int code;
-
 
 }

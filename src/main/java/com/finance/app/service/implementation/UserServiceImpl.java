@@ -1,6 +1,5 @@
 package com.finance.app.service.implementation;
 
-
 import com.finance.app.domain.User;
 import com.finance.app.domain.enums.Role;
 import com.finance.app.persistance.UserRepository;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +27,11 @@ public class UserServiceImpl implements UserService {
 
     public void saveUser(final User user) {
         LOGGER.info("UserServiceImpl.saveUser()");
-
         final String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         List<Role> roles = new ArrayList<>();
         roles.add(Role.USER);
         user.setRoles(roles);
-
         userRepository.save(user);
         LOGGER.info("UserServiceImpl.saveUser() finished");
     }

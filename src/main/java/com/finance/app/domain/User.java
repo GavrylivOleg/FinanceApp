@@ -1,6 +1,5 @@
 package com.finance.app.domain;
 
-
 import com.finance.app.domain.enums.Role;
 import com.finance.app.domain.enums.UserStatus;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

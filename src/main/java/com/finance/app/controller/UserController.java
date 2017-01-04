@@ -27,7 +27,6 @@ public class UserController extends WebMvcConfigurerAdapter {
     @Autowired
     JmsTemplate jmsTemplate;
 
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -43,16 +42,16 @@ public class UserController extends WebMvcConfigurerAdapter {
         return "registration";
     }
 
-   @PostMapping("/registration")
-    public String saveUser(@ModelAttribute @Valid  User user, BindingResult bindingResult) {
+    @PostMapping("/registration")
+    public String saveUser(@ModelAttribute @Valid User user, BindingResult bindingResult) {
         LOGGER.info("UserController.saveUser()");
         userService.saveUser(user);
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             LOGGER.info("UserController.saveUser() some error in form");
             return "redirect/:registration";
-        }else {
+        } else {
             jmsTemplate.convertAndSend("mailbox", new MessageToEmail(user.getEmail(), "Registration is success"));
-            LOGGER.info("UserController.saveUser() mail sent to user :" + user.getEmail() +" ");
+            LOGGER.info("UserController.saveUser() mail sent to user :" + user.getEmail() + " ");
             LOGGER.info("UserController.saveUser() finished");
             return "login";
         }
