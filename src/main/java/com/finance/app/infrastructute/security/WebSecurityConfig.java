@@ -16,8 +16,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("financeUserDetailService")
-    FinanceUserDetailService financeUserDetailService;
+    private FinanceUserDetailService financeUserDetailService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

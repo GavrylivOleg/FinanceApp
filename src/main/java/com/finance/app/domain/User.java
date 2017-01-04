@@ -1,7 +1,7 @@
 package com.finance.app.domain;
 
 
-import com.finance.app.domain.enums.UserProjectPermit;
+import com.finance.app.domain.enums.Role;
 import com.finance.app.domain.enums.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,7 +43,8 @@ public class User {
     @Min(18)
     private int age;
 
-    private List<UserProjectPermit> roles;
+    private List<Role> roles;
 
-    private String status = UserStatus.ACTIVE.name();
+    private UserStatus status = UserStatus.ACTIVE;
+
 }

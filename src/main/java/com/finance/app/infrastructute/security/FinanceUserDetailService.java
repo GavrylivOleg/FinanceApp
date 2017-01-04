@@ -1,9 +1,9 @@
 package com.finance.app.infrastructute.security;
 
 import com.finance.app.domain.User;
-import com.finance.app.domain.enums.UserProjectPermit;
+import com.finance.app.domain.enums.Role;
+import com.finance.app.domain.enums.UserStatus;
 import com.finance.app.persistance.UserRepository;
-import com.finance.app.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service("financeUserDetailService")
 public class FinanceUserDetailService implements UserDetailsService {
@@ -40,31 +41,25 @@ public class FinanceUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("Bad Credentials");
         });
 
-        return new FinanceUserDetails(user.getEmail(), user.getPassword(), getGrantedAuthorities(user), user.getStatus(), user.getId());
-    }
+        List<SimpleGrantedAuthority> grantedAuthorityList = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.name()))
+                .collect(Collectors.toList());
 
-    private List<GrantedAuthority> getGrantedAuthorities(User user) {
-        List<GrantedAuthority> list = new ArrayList<>();
-
-        for (UserProjectPermit role : user.getRoles()) {
-            list.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
-        }
-
-        return list;
+        return new FinanceUserDetails(user.getEmail(), user.getPassword(), grantedAuthorityList, user.getStatus(), user.getId());
     }
 
     public static class FinanceUserDetails extends org.springframework.security.core.userdetails.User {
 
         @Getter
         @Setter
-        private String userStatus;
+        private UserStatus userStatus;
 
         @Getter
         @Setter
         private String id;
 
         public FinanceUserDetails(String username, String password,
-                                  Collection<? extends GrantedAuthority> authorities, String userStatus, String id) {
+                                  Collection<? extends GrantedAuthority> authorities, UserStatus userStatus, String id) {
             super(username, password, authorities);
             this.userStatus = userStatus;
             this.id = id;

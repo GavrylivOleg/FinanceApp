@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public interface UserService extends FinanceBaseService<User> {
+public interface UserService  {
+
+    void saveUser(User user);
 
 }

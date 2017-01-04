@@ -29,17 +29,12 @@ public class WebProjectApplication {
         return factory;
     }
 
-    @Bean // Serialize message content to json using TextMessage
+    @Bean
     public MessageConverter jacksonJmsMessageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");
         return converter;
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(new MongoClient("127.0.0.1", 27017), "finance");
     }
 
     public static void main(String[] args) {

@@ -11,6 +11,7 @@
 <h4 class="text-center"><a href="/currencyExchange">Currency Exchange</a></h4>
 
 <form action="#" th:action="@{/currencyExchange}" th:object="${currencyExchange}" method="get">
+
     <p th:text="'source: ' + ${currencyExchange.source}  "/>
     <p th:text="'timestamp: ' + ${currencyExchange.timestamp} "/>
     <p th:text="'USDUSD: ' + ${currencyExchange.quotes.USDUSD} "/>

@@ -1,10 +1,12 @@
-package com.finance.app.service;
+package com.finance.app.persistance;
 
-
+import com.mongodb.WriteResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface FinanceBaseService<T> {
+import java.util.List;
+
+public interface FinanceRepository<T> {
 
     T find (String id);
 

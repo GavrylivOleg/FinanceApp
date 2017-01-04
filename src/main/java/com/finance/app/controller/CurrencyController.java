@@ -1,6 +1,7 @@
 package com.finance.app.controller;
 
 import com.finance.app.domain.CurrencyExchange;
+import com.finance.app.infrastructute.exception.CurrencyExchangeNotFoundException;
 import com.finance.app.service.CurrencyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +20,9 @@ public class CurrencyController {
     private CurrencyService currencyService;
 
     @GetMapping("/currencyExchange")
-    public String getCurrencyExchange(Model model) throws ChangeSetPersister.NotFoundException {
+    public String getCurrencyExchange(Model model)  {
         LOGGER.info("CurrencyController.getCurrencyExchange()");
-        CurrencyExchange currencyExchange = currencyService.getCurrency().orElseThrow(ChangeSetPersister.NotFoundException::new);
+        CurrencyExchange currencyExchange = currencyService.getCurrency().orElseThrow(() -> new CurrencyExchangeNotFoundException("No such CurrencyExchange"));
         model.addAttribute("currencyExchange", currencyExchange);
         LOGGER.info("CurrencyController.getCurrencyExchange() finished");
         return "currencyExchange";

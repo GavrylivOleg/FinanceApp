@@ -45,15 +45,15 @@ public class UserController extends WebMvcConfigurerAdapter {
 
    @PostMapping("/registration")
     public String saveUser(@ModelAttribute @Valid  User user, BindingResult bindingResult) {
-        LOGGER.info("UserController.save()");
-        userService.save(user);
+        LOGGER.info("UserController.saveUser()");
+        userService.saveUser(user);
         if(bindingResult.hasErrors()){
-            LOGGER.info("UserController.save() some error in form");
+            LOGGER.info("UserController.saveUser() some error in form");
             return "redirect/:registration";
         }else {
             jmsTemplate.convertAndSend("mailbox", new MessageToEmail(user.getEmail(), "Registration is success"));
-            LOGGER.info("UserController.save() mail sent to user :" + user.getEmail() +" ");
-            LOGGER.info("UserController.save() finished");
+            LOGGER.info("UserController.saveUser() mail sent to user :" + user.getEmail() +" ");
+            LOGGER.info("UserController.saveUser() finished");
             return "login";
         }
     }
