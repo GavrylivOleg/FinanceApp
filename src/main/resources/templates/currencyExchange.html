@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Currency Exchange</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Currency Exchange:</h1>
+<h4 class="text-center"><a href="/registration">Create an account</a></h4>
+<h4 class="text-center"><a href="/login">Login</a></h4>
+<h4 class="text-center"><a href="/currencyExchange">Currency Exchange</a></h4>
+
+<form action="#" th:action="@{/currencyExchange}" th:object="${currencyExchange}" method="get">
+
+    <p th:text="'source: ' + ${currencyExchange.source}  "/>
+    <p th:text="'timestamp: ' + ${currencyExchange.timestamp} "/>
+    <p th:text="'USDUSD: ' + ${currencyExchange.quotes.USDUSD} "/>
+    <p th:text="'USDAUD: ' + ${currencyExchange.quotes.USDAUD} "/>
+    <p th:text="'USDCAD: ' + ${currencyExchange.quotes.USDCAD} "/>
+    <p th:text="'USDPLN: ' + ${currencyExchange.quotes.USDPLN} "/>
+    <p th:text="'USDMXN: ' + ${currencyExchange.quotes.USDMXN} "/>
+
+</form>
+</body>
+</html>
